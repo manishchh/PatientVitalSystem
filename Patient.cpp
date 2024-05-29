@@ -6,6 +6,11 @@
 #include <iomanip>
 #include <sstream>
 
+#include "DiseaseContext.h"
+#include "AmogusSusStrategy.h"
+#include "ERushStrategy.h"
+#include "NocapSyndromeStrategy.h"
+#include "TicctoccBrainDamage.h"
 
 using namespace std;
 
@@ -88,6 +93,28 @@ void Patient::addVitals(const Vitals* v)
 {
     _vitals.push_back(v);
     // TODO: calculate alert levels
+    AlertLevel level = AlertLevel::Green;
+    DiseaseContext context;
+
+    // Calculates the alert level respective to diseases
+    if (primaryDiagnosis() == Diagnosis::AMOGUS_SUS) {
+
+        context.set(std::make_shared<AmogusSusStrategy>());
+    }
+    else if (primaryDiagnosis() == Diagnosis::E_RUSH) {
+
+        context.set(std::make_shared<ERushStrategy>());
+    }
+    else if (primaryDiagnosis() == Diagnosis::NOCAP_SYNDROME) {
+
+        context.set(std::make_shared<NocapSyndromeStrategy>());
+    }
+    else if (primaryDiagnosis() == Diagnosis::TICCTOCC_BRAIN_DAMAGE) {
+
+        context.set(std::make_shared<TicctoccBrainDamageStrategy>());
+    }
+
+    context.calculateAlertLevel(v, this);
 }
 
 const std::vector<const Vitals*> Patient::vitals() const
