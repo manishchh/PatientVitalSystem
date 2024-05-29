@@ -2,8 +2,8 @@
 #define DISEASE_STRATEGY_H
 
 #include "PatientAlertLevels.h"
-class Vitals;
-class Patient;
+#include "Vitals.h"
+#include "Patient.h"
 
 class DiseaseStrategy {
 public:
