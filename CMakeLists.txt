@@ -15,7 +15,7 @@ project ("A2")
 add_executable (A2
     "AbstractPatientDatabaseLoader.h"
     "GPNotificationSystemFacade.cpp" "GPNotificationSystemFacade.h"
-    "HospitalAlertSystemFacade.cpp" "HospitalAlertSystemFacade.cpp"
+    "HospitalAlertSystemFacade.cpp" "HospitalAlertSystemFacade.h"
     "main.cpp"
     "Patient.cpp" "Patient.h"
     "PatientAlertLevels.h"
@@ -24,7 +24,12 @@ add_executable (A2
     "PatientManagementSystem.cpp" "PatientManagementSystem.h"
     "Person.cpp" "Person.h"
     "Vitals.cpp" "Vitals.h"
-)
+    "DiseaseStrategy.h" 
+    "AmogusSusStrategy.cpp" "AmogusSusStrategy.h" 
+    "ERushStrategy.cpp" "ERushStrategy.h"
+    "NocapSyndromeStrategy.cpp" "NocapSyndromeStrategy.h" 
+    "TicctoccBrainDamage.cpp" "TicctoccBrainDamage.h"
+    "DiseaseContext.cpp" "DiseaseContext.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET A2 PROPERTY CXX_STANDARD 20)
