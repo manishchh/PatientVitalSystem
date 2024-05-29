@@ -6,7 +6,7 @@
 
 class AmogusSusStrategy : public DiseaseStrategy {
 public:
-    virtual void const calculateAlertLevel(const Vitals* v, Patient* p) override;
+    virtual const void calculateAlertLevel(const Vitals* v, Patient* p) override;
 };
 
 #endif

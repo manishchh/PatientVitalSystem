@@ -3,16 +3,16 @@
 
 const void NocapSyndromeStrategy::calculateAlertLevel(const Vitals* v,Patient* p) {
 
-    if (v.SPO2() < 90) {
-        return AlertLevel::Red;
+    if (v->SPO2() < 90) {
+        p->setAlertLevel(AlertLevel::Red);
     }
-    else if (v.SPO2() < 92) {
-        return AlertLevel::Orange;
+    else if (v->SPO2() < 92) {
+        p->setAlertLevel(AlertLevel::Orange);
     }
-    else if (v.SPO2() < 94) {
-        return AlertLevel::Yellow;
+    else if (v->SPO2() < 94) {
+        p->setAlertLevel(AlertLevel::Yellow);
     }
     else {
-        return AlertLevel::Green;
+        p->setAlertLevel(AlertLevel::Green);
     }
 }

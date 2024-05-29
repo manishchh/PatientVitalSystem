@@ -4,17 +4,17 @@
 
 const void AmogusSusStrategy::calculateAlertLevel(const Vitals* v, Patient* p) {
     
-    if (v.HR() > 220) {
-        return AlertLevel::Red;
+    if (v->HR() > 220) {
+        p->setAlertLevel(AlertLevel::Red);
     }
-    else if (v.HR() > 210) {
-        return AlertLevel::Orange;
+    else if (v->HR() > 210) {
+        p->setAlertLevel(AlertLevel::Orange);
     }
-    else if (v.HR() > 200) {
-        return AlertLevel::Yellow;
+    else if (v->HR() > 200) {
+        p->setAlertLevel(AlertLevel::Yellow);
     }
     else {
-        return AlertLevel::Green;
+        p->setAlertLevel(AlertLevel::Green);
     }
     
 }
