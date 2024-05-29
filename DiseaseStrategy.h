@@ -2,13 +2,13 @@
 #define DISEASE_STRATEGY_H
 
 #include "PatientAlertLevels.h"
-class Vitals;
-class Patient;
+#include "Vitals.h"
+#include "Patient.h"
 
 class DiseaseStrategy {
 public:
-    virtual ~DiseaseStrategy() = default;
-    virtual void const calculateAlertLevel(const Vitals* v, Patient* p) = 0;
+
+    virtual const void calculateAlertLevel(const Vitals* v, Patient* p) = 0;
 };
 
 #endif
