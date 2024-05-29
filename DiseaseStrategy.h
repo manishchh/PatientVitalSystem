@@ -8,7 +8,7 @@ class Patient;
 class DiseaseStrategy {
 public:
     virtual ~DiseaseStrategy() = default;
-    virtual AlertLevel calculateAlertLevel(const Vitals& v, const Patient& p) = 0;
+    virtual void const calculateAlertLevel(const Vitals* v, Patient* p) = 0;
 };
 
 #endif
