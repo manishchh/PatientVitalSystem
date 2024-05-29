@@ -1,8 +1,8 @@
 #include "AmogusSusStrategy.h"
-#include "Vitals.h"
 
 
-AlertLevel AmogusSusStrategy::calculateAlertLevel(const Vitals& v, const Patient& p) {
+
+const void AmogusSusStrategy::calculateAlertLevel(const Vitals* v, Patient* p) {
     
     if (v.HR() > 220) {
         return AlertLevel::Red;
