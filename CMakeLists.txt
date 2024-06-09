@@ -29,7 +29,7 @@ add_executable (A2
     "ERushStrategy.cpp" "ERushStrategy.h"
     "NocapSyndromeStrategy.cpp" "NocapSyndromeStrategy.h" 
     "TicctoccBrainDamage.cpp" "TicctoccBrainDamage.h"
-    "DiseaseContext.cpp" "DiseaseContext.h")
+    "CompositeDiseaseStrategy.cpp" "CompositeDiseaseStrategy.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET A2 PROPERTY CXX_STANDARD 20)
