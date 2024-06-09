@@ -23,7 +23,8 @@ const std::string Diagnosis::TICCTOCC_BRAIN_DAMAGE = "TicctoccBrainDamage";
 
 Patient::Patient(const std::string& firstName, const std::string& lastName, std::tm birthday) :
     Person(firstName, lastName, birthday),
-    _alertLevel(AlertLevel::Green)
+    _alertLevel(AlertLevel::Green),
+    _calculateAlertLevel(true)
 {
 }
 
@@ -93,6 +94,9 @@ void Patient::addVitals(const Vitals* v)
 {
     _vitals.push_back(v);
     // TODO: calculate alert levels
+    if (!_calculateAlertLevel) {
+        return;  // Skip alert level calculation if the flag is false
+    }
     if (_diagnosis.size() == 1) {
         // Determine the strategy based on the single diagnosis
         if (_diagnosis.front() == Diagnosis::AMOGUS_SUS) {
@@ -133,6 +137,11 @@ void Patient::addVitals(const Vitals* v)
     }
 }
 
+void Patient::clearVitals()
+{
+    _vitals.clear();
+}
+
 const std::vector<const Vitals*> Patient::vitals() const
 {
     return _vitals;
@@ -157,4 +166,8 @@ void Patient::setAlertLevel(AlertLevel level)
         }
         cout << endl;
     }
+}
+void Patient::setCalculateAlertLevel(bool calculate)
+{
+    _calculateAlertLevel = calculate;
 }
