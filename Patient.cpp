@@ -10,6 +10,7 @@
 #include "ERushStrategy.h"
 #include "NocapSyndromeStrategy.h"
 #include "TicctoccBrainDamage.h"
+#include "CompositeDiseaseStrategy.h"
 
 using namespace std;
 
@@ -106,6 +107,26 @@ void Patient::addVitals(const Vitals* v)
         else if (_diagnosis.front() == Diagnosis::TICCTOCC_BRAIN_DAMAGE) {
             _strategy = std::make_unique<TicctoccBrainDamageStrategy>();
         }
+    }
+    else if (_diagnosis.size() > 1) {
+        auto compositeStrategy = std::make_unique<CompositeDiseaseStrategy>();
+
+        for (const auto& diagnosis : _diagnosis) {
+            if (diagnosis == Diagnosis::AMOGUS_SUS) {
+                compositeStrategy->addStrategy(std::make_unique<AmogusSusStrategy>());
+            }
+            else if (diagnosis == Diagnosis::E_RUSH) {
+                compositeStrategy->addStrategy(std::make_unique<ERushStrategy>());
+            }
+            else if (diagnosis == Diagnosis::NOCAP_SYNDROME) {
+                compositeStrategy->addStrategy(std::make_unique<NocapSyndromeStrategy>());
+            }
+            else if (diagnosis == Diagnosis::TICCTOCC_BRAIN_DAMAGE) {
+                compositeStrategy->addStrategy(std::make_unique<TicctoccBrainDamageStrategy>());
+            }
+        }
+
+        _strategy = std::move(compositeStrategy);
     }
     if (_strategy) {
         setAlertLevel(_strategy->calculateAlertLevel(*v, *this));
