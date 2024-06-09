@@ -1,14 +1,16 @@
 #include "ERushStrategy.h"
+#include "Patient.h"
+#include "Vitals.h"
 
-const void ERushStrategy::calculateAlertLevel(const Vitals* v, Patient* p) {
+AlertLevel ERushStrategy::calculateAlertLevel(const Vitals& v, Patient& p) {
     
-    if (v->BT() > 38 || v->BA() > 110) {
-        p->setAlertLevel(AlertLevel::Red);
+    if (v.BT() > 38 || v.BA() > 110) {
+        return AlertLevel::Red;
     }
-    else if (v->BT() > 38 || v->BA() > 100) {
-        p->setAlertLevel(AlertLevel::Yellow);
+    else if (v.BT() > 38 || v.BA() > 100) {
+        return AlertLevel::Yellow;
     }
     else {
-        p->setAlertLevel(AlertLevel::Green);
+        return AlertLevel::Green;
     }
 }

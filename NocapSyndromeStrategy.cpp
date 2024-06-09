@@ -1,18 +1,19 @@
 #include "NocapSyndromeStrategy.h"
+#include"Patient.h"
+#include "Vitals.h"
 
+AlertLevel NocapSyndromeStrategy::calculateAlertLevel(const Vitals& v, Patient& p) {
 
-const void NocapSyndromeStrategy::calculateAlertLevel(const Vitals* v,Patient* p) {
-
-    if (v->SPO2() < 90) {
-        p->setAlertLevel(AlertLevel::Red);
+    if (v.SPO2() < 90) {
+        return AlertLevel::Red;
     }
-    else if (v->SPO2() < 92) {
-        p->setAlertLevel(AlertLevel::Orange);
+    else if (v.SPO2() < 92) {
+        return AlertLevel::Orange;
     }
-    else if (v->SPO2() < 94) {
-        p->setAlertLevel(AlertLevel::Yellow);
+    else if (v.SPO2() < 94) {
+        return AlertLevel::Yellow;
     }
     else {
-        p->setAlertLevel(AlertLevel::Green);
+        return AlertLevel::Green;
     }
 }

@@ -1,11 +1,12 @@
 #include "TicctoccBrainDamage.h"
+#include "Patient.h"
+#include "Vitals.h"
 
-const void TicctoccBrainDamageStrategy::calculateAlertLevel(const Vitals* v, Patient* p)  {
-
-    if ((p->age() < 35 && v->BA() < 10) || (p->age() >= 35 && v->BA() < 20)) {
-        p->setAlertLevel(AlertLevel::Red);
+AlertLevel TicctoccBrainDamageStrategy::calculateAlertLevel(const Vitals& v, Patient& p)  {
+    if ((p.age() < 35 && v.BA() < 10) || (p.age() >= 35 && v.BA() < 20)) {
+        return AlertLevel::Red;
     }
     else {
-        p->setAlertLevel(AlertLevel::Green);
+        return AlertLevel::Green;
     }
 } 
