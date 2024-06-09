@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "PatientAlertLevels.h"
-
+#include "DiseaseStrategy.h"
 class Vitals;
 
 
@@ -53,6 +53,7 @@ protected:
     std::vector<std::string> _diagnosis;
     std::vector<const Vitals*> _vitals;
     AlertLevel _alertLevel;
+    std::unique_ptr<DiseaseStrategy> _strategy;
 
     friend std::ostream& operator<<(std::ostream& os, const Patient& p);
 };
