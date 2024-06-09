@@ -12,7 +12,7 @@ class AbstractPatientDatabaseLoader;
 class HospitalAlertSystemFacade;
 class GPNotificationSystemFacade;
 class Patient;
-
+class Subject;
 
 class PatientManagementSystem
 {
@@ -41,6 +41,7 @@ protected:
 
     //std::unique_ptr<AbstractPatientDatabaseLoader> _patientDatabaseLoader;
     std::unique_ptr<AbstractPatientDatabaseLoader> _patientFileLoader;
+    std::unique_ptr<Subject> _subject;
 };
 
 #endif
