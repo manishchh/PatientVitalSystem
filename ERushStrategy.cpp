@@ -4,10 +4,10 @@
 
 AlertLevel ERushStrategy::calculateAlertLevel(const Vitals& v, Patient& p) {
     
-    if (v.BT() > 38 || v.BA() > 110) {
+    if (v.BT() > 38 && v.BA() > 110) {
         return AlertLevel::Red;
     }
-    else if (v.BT() > 38 || v.BA() > 100) {
+    else if (v.BT() > 38 && v.BA() > 100) {
         return AlertLevel::Yellow;
     }
     else {
