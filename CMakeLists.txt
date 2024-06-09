@@ -30,7 +30,11 @@ add_executable (A2
     "NocapSyndromeStrategy.cpp" "NocapSyndromeStrategy.h" 
     "TicctoccBrainDamage.cpp" "TicctoccBrainDamage.h"
     "CompositeDiseaseStrategy.cpp" "CompositeDiseaseStrategy.h"
-    "PatientFileLoaderAdapter.cpp" "PatientFileLoaderAdapter.h" "Subject.cpp" "Observer.h" "HospitalObserver.h" "HospitalObserver.cpp" "GpObserver.h" "GpObserver.cpp")
+    "PatientFileLoaderAdapter.cpp" "PatientFileLoaderAdapter.h" 
+    "Subject.cpp" "Subject.h"
+    "Observer.h" 
+    "HospitalObserver.h" "HospitalObserver.cpp" 
+    "GpObserver.h" "GpObserver.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET A2 PROPERTY CXX_STANDARD 20)
