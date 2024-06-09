@@ -11,6 +11,9 @@
 
 #include "GPNotificationSystemFacade.h"
 #include "HospitalAlertSystemFacade.h"
+#include "Subject.h"
+#include "HospitalObserver.h"
+#include "GPObserver.h"
 
 using namespace std;
 
@@ -19,7 +22,8 @@ PatientManagementSystem::PatientManagementSystem() :
     //_patientDatabaseLoader(std::make_unique<PatientDatabaseLoader>()),
     _hospitalAlertSystem(std::make_unique<HospitalAlertSystemFacade>()),
     _gpNotificationSystem(std::make_unique<GPNotificationSystemFacade>()),
-    _patientFileLoader(std::make_unique<PatientFileLoaderAdapter>())
+    _patientFileLoader(std::make_unique<PatientFileLoaderAdapter>()),
+    _subject(std::make_unique<Subject>())
 {
     _patientFileLoader->initialiseConnection();
 }
@@ -36,6 +40,16 @@ PatientManagementSystem::~PatientManagementSystem()
 
 void PatientManagementSystem::init()
 {
+    // Create a shared pointer to a HospitalObserver instance
+    std::shared_ptr<HospitalObserver> hospitalObserver = std::make_shared<HospitalObserver>(_hospitalAlertSystem.get());
+
+    // Create a shared pointer to a GPObserver instance
+    std::shared_ptr<GPObserver> gpObserver = std::make_shared<GPObserver>(_gpNotificationSystem.get());
+
+    // Registering observers with the subject for event notifications
+    _subject->add(hospitalObserver);
+    _subject->add(gpObserver);
+
     _patientFileLoader->loadPatients(_patients);
     for (Patient* p : _patients) {
         _patientLookup[p->uid()] = p;
@@ -104,6 +118,11 @@ void PatientManagementSystem::addVitalsRecord()
 
         Vitals* v = new Vitals(heartRate, oxygenSaturation, bodyTemperature, brainActivity);
         _patientLookup[pid]->addVitals(v);
+
+        // Check if the patient alert level is red and notify observers if so
+        if (_patientLookup[pid]->alertLevel() == AlertLevel::Red) {
+            _subject->notify(_patientLookup[pid]);
+        }
     }
     else {
         cout << "Patient not found" << endl;
