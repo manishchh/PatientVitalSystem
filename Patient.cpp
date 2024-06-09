@@ -6,7 +6,6 @@
 #include <iomanip>
 #include <sstream>
 
-#include "DiseaseContext.h"
 #include "AmogusSusStrategy.h"
 #include "ERushStrategy.h"
 #include "NocapSyndromeStrategy.h"
@@ -93,28 +92,24 @@ void Patient::addVitals(const Vitals* v)
 {
     _vitals.push_back(v);
     // TODO: calculate alert levels
-    AlertLevel level = AlertLevel::Green;
-    DiseaseContext context;
-
-    // Calculates the alert level respective to diseases
-    if (primaryDiagnosis() == Diagnosis::AMOGUS_SUS) {
-
-        context.set(std::make_shared<AmogusSusStrategy>());
+    if (_diagnosis.size() == 1) {
+        // Determine the strategy based on the single diagnosis
+        if (_diagnosis.front() == Diagnosis::AMOGUS_SUS) {
+            _strategy = std::make_unique<AmogusSusStrategy>();
+        }
+        else if (_diagnosis.front() == Diagnosis::E_RUSH) {
+            _strategy = std::make_unique<ERushStrategy>();
+        }
+        else if (_diagnosis.front() == Diagnosis::NOCAP_SYNDROME) {
+            _strategy = std::make_unique<NocapSyndromeStrategy>();
+        }
+        else if (_diagnosis.front() == Diagnosis::TICCTOCC_BRAIN_DAMAGE) {
+            _strategy = std::make_unique<TicctoccBrainDamageStrategy>();
+        }
     }
-    else if (primaryDiagnosis() == Diagnosis::E_RUSH) {
-
-        context.set(std::make_shared<ERushStrategy>());
+    if (_strategy) {
+        setAlertLevel(_strategy->calculateAlertLevel(*v, *this));
     }
-    else if (primaryDiagnosis() == Diagnosis::NOCAP_SYNDROME) {
-
-        context.set(std::make_shared<NocapSyndromeStrategy>());
-    }
-    else if (primaryDiagnosis() == Diagnosis::TICCTOCC_BRAIN_DAMAGE) {
-
-        context.set(std::make_shared<TicctoccBrainDamageStrategy>());
-    }
-
-    context.calculateAlertLevel(v, this);
 }
 
 const std::vector<const Vitals*> Patient::vitals() const
