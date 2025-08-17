@@ -55,4 +55,7 @@ This project implements **four key design patterns**:
 3. The system calculates the alert level based on thresholds for their disease(s).  
 4. If multiple diseases exist, the **highest alert level** is applied.  
 5. If the alert level is **Red**, notifications are immediately sent to hospitals and GPs.  
-6. Patients’ vitals and alerts are displayed in a command-line interface. 
+6. Patients’ vitals and alerts are displayed in a command-line interface.
+
+<img width="887" height="466" alt="image" src="https://github.com/user-attachments/assets/e64429b8-772c-4707-8f21-64d3f8f12c69" />
+
